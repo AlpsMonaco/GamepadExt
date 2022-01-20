@@ -6,7 +6,7 @@ Don't you like enjoying splendid view of 3A games???
 Looking at the game character walking in the game without controlling a gamepad or keyboard (afk) would be a nice thing.
 
 ## Keymap
-F1 -> auto walk.  
+F1 -> toggle auto walk.  
 F2 -> simulate 'A' button of gamepad.  
 F3 -> reduce walk speed.  
 F4 -> add walk speed.  
@@ -29,7 +29,7 @@ feel free to commit(I know that there will not)
 看着角色在3A游戏中慢慢的走，你可以双手离开键盘，静静的欣赏风景，这多是一件美逝啊。  
 
 ## 按键
-F1 -> 自动前进  
+F1 -> 自动前进/取消自动前进  
 F2 -> 模拟“A”键  
 F3 -> 降低速度  
 F4 -> 增加速度
