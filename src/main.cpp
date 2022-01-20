@@ -115,15 +115,43 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 		pad.UpdateState(state);
 		return false;
 	}
-	if (keyCode != VK_F1 || keyStatus != WM_KEYDOWN) return true;
-	forward = !forward;
-	if (forward)
-		state.leftJoystick.Y = threshold;
-	else
-		state.leftJoystick.Y = 0;
-	std::cout << 3 << std::endl;
-	pad.UpdateState(state);
-	return false;
+	if (keyCode == VK_F1)
+	{
+		if (keyStatus == WM_KEYDOWN)
+		{
+			forward = !forward;
+			if (forward)
+				state.leftJoystick.Y = threshold;
+			else
+				state.leftJoystick.Y = 0;
+			std::cout << 3 << std::endl;
+			pad.UpdateState(state);
+		}
+		return false;
+	}
+	if (keyCode == VK_F3)
+	{
+		if (keyStatus == WM_KEYDOWN)
+		{
+			threshold += 1000;
+			if (forward)
+				state.leftJoystick.Y = threshold;
+			pad.UpdateState(state);
+		}
+		return false;
+	}
+	if (keyCode == VK_F4)
+	{
+		if (keyStatus == WM_KEYDOWN)
+		{
+			threshold -= 1000;
+			if (forward)
+				state.leftJoystick.Y = threshold;
+			pad.UpdateState(state);
+		}
+		return false;
+	}
+	return true;
 }
 
 
