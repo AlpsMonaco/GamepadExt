@@ -15,30 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Gamepad.cpp">
+    <ClCompile Include="src\Gamepad.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NativeXInput.cpp">
+    <ClCompile Include="src\NativeXInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="keyboard.cpp">
+    <ClCompile Include="src\keyboard.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gamepad.h">
+    <ClInclude Include="src\Gamepad.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NativeXInput.h">
+    <ClInclude Include="src\NativeXInput.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="types.h">
+    <ClInclude Include="src\keyboard.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard.h">
+    <ClInclude Include="src\types.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -159,16 +159,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Gamepad.cpp" />
-    <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="NativeXInput.cpp" />
+    <ClCompile Include="src\Gamepad.cpp" />
+    <ClCompile Include="src\keyboard.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\NativeXInput.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gamepad.h" />
-    <ClInclude Include="keyboard.h" />
-    <ClInclude Include="NativeXInput.h" />
-    <ClInclude Include="types.h" />
+    <ClInclude Include="src\Gamepad.h" />
+    <ClInclude Include="src\keyboard.h" />
+    <ClInclude Include="src\NativeXInput.h" />
+    <ClInclude Include="src\types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
