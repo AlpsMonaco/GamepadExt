@@ -101,6 +101,7 @@ bool Control(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 int threshold = 10000;
 // bool forward = false;
 std::atomic<bool> forward = false;
+bool isForwarding = false;
 std::thread t([]()->void
 	{
 		bool isForward;
@@ -114,41 +115,32 @@ std::thread t([]()->void
 				state.leftJoystick.Y = threshold - 1;
 				pad.UpdateState(state);
 			}
-			else
-			{
-				state.leftJoystick.Y = 0;
-				pad.UpdateState(state);
-			}
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 	});
 
 bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 {
-	if (keyCode == VK_F2 && keyStatus == WM_KEYDOWN)
-	{
-		std::cout << 1 << std::endl;
-		state.button |= gamepad::GamepadKey::A;
-		pad.UpdateState(state);
-		return false;
-	}
-	if (keyCode == VK_F2 && keyStatus == WM_KEYUP)
-	{
-		std::cout << 2 << std::endl;
-		state.button &= ~gamepad::GamepadKey::A;
-		pad.UpdateState(state);
-		return false;
-	}
 	if (keyCode == VK_F1)
 	{
 		if (keyStatus == WM_KEYDOWN)
 			forward = !forward;
+		if ((isForwarding == forward))
+		{
+			state.leftJoystick.Y = 0;
+			pad.UpdateState(state);
+		}
 		return false;
 	}
 	if (keyCode == VK_W)
 	{
 		if (keyStatus == WM_KEYDOWN)
 			forward = false;
+		if ((isForwarding == forward))
+		{
+			state.leftJoystick.Y = 0;
+			pad.UpdateState(state);
+		}
 		return true;
 	}
 	if (keyCode == VK_F2)
