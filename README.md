@@ -3,7 +3,7 @@ This is a util simulates left joystick of xbox360 gamepad auto walk.
 
 ## WHY???
 Don't you like enjoying splendid view of 3A games???  
-Looking at the game character walking in the game without controlling a gamepad (afk) would be a nice thing.
+Looking at the game character walking in the game without controlling a gamepad or keyboard (afk) would be a nice thing.
 
 ## Keymap
 F1 -> auto walk.  
