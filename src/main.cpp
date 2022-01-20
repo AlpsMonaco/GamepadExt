@@ -133,7 +133,7 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	{
 		if (keyStatus == WM_KEYDOWN)
 		{
-			threshold += 1000;
+			threshold -= 1000;
 			if (forward)
 				state.leftJoystick.Y = threshold;
 			pad.UpdateState(state);
@@ -144,7 +144,7 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	{
 		if (keyStatus == WM_KEYDOWN)
 		{
-			threshold -= 1000;
+			threshold += 1000;
 			if (forward)
 				state.leftJoystick.Y = threshold;
 			pad.UpdateState(state);
