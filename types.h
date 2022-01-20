@@ -18,13 +18,34 @@ namespace gamepad
 	};
 	struct State
 	{
-		PacketNumber packetNumber;
 		Button button;
 		Trigger leftTrigger;
-		Trigger  rightTrigger;
+		Trigger rightTrigger;
 		Joystick leftJoystick;
 		Joystick rightJoystick;
 	};
-}
+	struct XInputState
+	{
+		PacketNumber packetNumber;
+		State gamepadState;
+	};
+	enum GamepadKey
+	{
+		DPAD_UP = 0x0001,
+		DPAD_DOWN = 0x0002,
+		DPAD_LEFT = 0x0004,
+		DPAD_RIGHT = 0x0008,
+		START = 0x0010,
+		BACK = 0x0020,
+		LEFT_THUMB = 0x0040,
+		RIGHT_THUMB = 0x0080,
+		LEFT_SHOULDER = 0x0100,
+		RIGHT_SHOULDER = 0x0200,
+		A = 0x1000,
+		B = 0x2000,
+		X = 0x4000,
+		Y = 0x8000,
+	};
+}  // namespace gamepad
 
-#endif // !__GAMEPAD_TYPES
+#endif  // !__GAMEPAD_TYPES

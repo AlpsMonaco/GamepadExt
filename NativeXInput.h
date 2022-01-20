@@ -13,12 +13,12 @@ namespace gamepad
 		NativeXInput(unsigned long num);
 		~NativeXInput();
 
-		const State* GetState();
+		const XInputState* GetState();
 		unsigned long errcode;
 
 	protected:
 		unsigned long num;
-		State state;
+		XInputState state;
 	};
 }
 

@@ -24,6 +24,9 @@
     <ClCompile Include="NativeXInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamepad.h">
@@ -33,6 +36,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

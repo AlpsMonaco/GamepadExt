@@ -72,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Library\ViGEmClient\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Library\ViGEmClient\lib\release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Library\ViGEmClient\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Library\ViGEmClient\lib\release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Library\ViGEmClient\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Library\ViGEmClient\lib\debug\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\debug\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Library\ViGEmClient\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Library\ViGEmClient\lib\release\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -160,11 +160,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Gamepad.cpp" />
+    <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NativeXInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamepad.h" />
+    <ClInclude Include="keyboard.h" />
     <ClInclude Include="NativeXInput.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>

@@ -6,10 +6,13 @@
 #pragma comment(lib, "setupapi.lib")
 
 using namespace gamepad;
-void (*OnError)(const char* errmsg) = [](const char* errmsg) ->void {printf("%s\n", errmsg); };
-void gamepad::SetErrorHandler(void(*f)(const char* errmsg)) { OnError = f; }
+void (*OnError)(const char* errmsg) = [](const char* errmsg) -> void {
+	printf("%s\n", errmsg);
+};
+void gamepad::SetErrorHandler(void (*f)(const char* errmsg)) { OnError = f; }
 
-struct VigemManager {
+struct VigemManager
+{
 	VigemManager()
 	{
 		client = nullptr;
@@ -26,7 +29,8 @@ struct VigemManager {
 	PVIGEM_CLIENT GetClient() { return (this->*GetClientPtr)(); }
 
 private:
-	PVIGEM_CLIENT(VigemManager::* GetClientPtr)();
+	PVIGEM_CLIENT(VigemManager::* GetClientPtr)
+		();
 	PVIGEM_CLIENT client;
 	PVIGEM_CLIENT InitClient()
 	{
@@ -79,7 +83,10 @@ void gamepad::Gamepad::Remove()
 	}
 }
 
-xBox360::xBox360() :Gamepad() {}
+xBox360::xBox360()
+	: Gamepad()
+{
+}
 xBox360::~xBox360() {}
 bool xBox360::Connect()
 {
@@ -95,9 +102,10 @@ bool xBox360::Connect()
 	return true;
 }
 
-bool xBox360::UpdateState(const State&state)
+bool xBox360::UpdateState(const State& state)
 {
-	VIGEM_ERROR ret = vigem_target_x360_update(this->vigemClient, this->virtualPad, *(XUSB_REPORT*)&state);
+	VIGEM_ERROR ret = vigem_target_x360_update(
+		this->vigemClient, this->virtualPad, *(XUSB_REPORT*)&state);
 	if (!VIGEM_SUCCESS(ret))
 	{
 		char errormsg[64];

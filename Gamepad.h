@@ -10,7 +10,7 @@ namespace gamepad
 	// If internal error occurs,error message will be sent to ErrorHandleCallback;
 	// Customize ErrorHandle callback here.
 	// Default Will be output to stdout.
-	void SetErrorHandler(void(*f)(const char* errmsg));
+	void SetErrorHandler(void (*f)(const char* errmsg));
 
 	enum GamepadType
 	{
@@ -33,8 +33,7 @@ namespace gamepad
 		PVIGEM_TARGET virtualPad;
 	};
 
-
-	class xBox360 :public Gamepad
+	class xBox360 : public Gamepad
 	{
 	public:
 		xBox360();
@@ -44,6 +43,5 @@ namespace gamepad
 		bool UpdateState(const State& state);
 	};
 }
-
 
 #endif // __GAMEPAD_H
