@@ -5,6 +5,7 @@
 #include "gamepad.h"
 #include "keyboard.h"
 #include "thread"
+#include "atomic"
 
 gamepad::xBox360 pad;
 gamepad::State state;
@@ -98,7 +99,30 @@ bool Control(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	return false;
 }
 int threshold = 10000;
-bool forward = false;
+// bool forward = false;
+std::atomic<bool> forward = false;
+std::thread t([]()->void
+	{
+		bool isForward;
+		for (;;)
+		{
+			isForward = forward;
+			if (isForward)
+			{
+				state.leftJoystick.Y = threshold + 1;
+				pad.UpdateState(state);
+				state.leftJoystick.Y = threshold - 1;
+				pad.UpdateState(state);
+			}
+			else
+			{
+				state.leftJoystick.Y = 0;
+				pad.UpdateState(state);
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+	});
+
 bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 {
 	if (keyCode == VK_F2 && keyStatus == WM_KEYDOWN)
@@ -118,18 +142,16 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	if (keyCode == VK_F1)
 	{
 		if (keyStatus == WM_KEYDOWN)
-		{
 			forward = !forward;
-			if (forward)
-				state.leftJoystick.Y = threshold;
-			else
-				state.leftJoystick.Y = 0;
-			std::cout << 3 << std::endl;
-			pad.UpdateState(state);
-		}
 		return false;
 	}
-	if (keyCode == VK_F3)
+	if (keyCode == VK_W)
+	{
+		if (keyStatus == WM_KEYDOWN)
+			forward = false;
+		return true;
+	}
+	if (keyCode == VK_F2)
 	{
 		if (keyStatus == WM_KEYDOWN)
 		{
@@ -140,7 +162,7 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 		}
 		return false;
 	}
-	if (keyCode == VK_F4)
+	if (keyCode == VK_F3)
 	{
 		if (keyStatus == WM_KEYDOWN)
 		{
@@ -163,6 +185,6 @@ int main(int argc, char** argv)
 		return 1;
 	keyboard::OnKeyPress(GameForward);
 	for (;;)
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	return 0;
 }

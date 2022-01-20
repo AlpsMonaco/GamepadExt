@@ -7,9 +7,8 @@ Looking at the game character walking in the game without controlling a gamepad 
 
 ## Keymap
 F1 -> toggle auto walk.  
-F2 -> simulate 'A' button of gamepad.  
-F3 -> reduce walk speed.  
-F4 -> add walk speed.  
+F2 -> reduce walk speed.  
+F3 -> add walk speed.    
 
 
 ## Installation
@@ -30,9 +29,8 @@ feel free to commit(I know that there will not)
 
 ## 按键
 F1 -> 自动前进/取消自动前进  
-F2 -> 模拟“A”键  
-F3 -> 降低速度  
-F4 -> 增加速度
+F2 -> 降低速度  
+F3 -> 增加速度
 
 
 ## 安装
