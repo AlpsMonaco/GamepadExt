@@ -99,33 +99,18 @@ bool Control(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	return false;
 }
 int threshold = 10000;
-int rightThreshold = 12000;
+const int defaultThreshold = 12000;
+
+int rightXThreshold = defaultThreshold;
+int rightYThreshold = defaultThreshold;
 bool forward = false;
-//std::atomic<bool> forward = false;
-//bool isForwarding = false;
-//std::thread t([]()->void
-//			  {
-//				  bool isForward;
-//				  for (;;)
-//				  {
-//					  isForward = forward;
-//					  if (isForward)
-//					  {
-//						  state.leftJoystick.Y = threshold + 1;
-//						  pad.UpdateState(state);
-//						  state.leftJoystick.Y = threshold - 1;
-//						  pad.UpdateState(state);
-//					  }
-//					  std::this_thread::sleep_for(std::chrono::milliseconds(1));
-//				  }
-//			  });
 
 bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 {
 	if (keyCode == VK_NUMPAD4)
 	{
 		if (keyStatus == WM_KEYDOWN)
-			state.rightJoystick.X = -rightThreshold;
+			state.rightJoystick.X = -rightXThreshold;
 		else
 			state.rightJoystick.X = 0;
 		pad.UpdateState(state);
@@ -134,7 +119,7 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	if (keyCode == VK_NUMPAD6)
 	{
 		if (keyStatus == WM_KEYDOWN)
-			state.rightJoystick.X = rightThreshold;
+			state.rightJoystick.X = rightXThreshold;
 		else
 			state.rightJoystick.X = 0;
 		pad.UpdateState(state);
@@ -143,7 +128,7 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	if (keyCode == VK_NUMPAD8)
 	{
 		if (keyStatus == WM_KEYDOWN)
-			state.rightJoystick.Y = rightThreshold;
+			state.rightJoystick.Y = rightYThreshold;
 		else
 			state.rightJoystick.Y = 0;
 		pad.UpdateState(state);
@@ -152,7 +137,7 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	if (keyCode == VK_NUMPAD2)
 	{
 		if (keyStatus == WM_KEYDOWN)
-			state.rightJoystick.Y = -rightThreshold;
+			state.rightJoystick.Y = -rightYThreshold;
 		else
 			state.rightJoystick.Y = 0;
 		pad.UpdateState(state);
@@ -162,7 +147,8 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	{
 		if (keyStatus == WM_KEYDOWN)
 		{
-			rightThreshold += 500;
+			rightXThreshold += 500;
+			rightYThreshold += 500;
 			pad.UpdateState(state);
 		}
 		return false;
@@ -171,8 +157,29 @@ bool GameForward(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 	{
 		if (keyStatus == WM_KEYDOWN)
 		{
-			rightThreshold -= 500;
-			std::cout << rightThreshold << std::endl;
+			rightXThreshold -= 500;
+			rightYThreshold -= 500;
+			std::cout << rightXThreshold << std::endl;
+			pad.UpdateState(state);
+		}
+		return false;
+	}
+	if (keyCode == VK_MULTIPLY)
+	{
+		if (keyStatus == WM_KEYDOWN)
+		{
+			rightYThreshold += 100;
+			std::cout << rightXThreshold << std::endl;
+			pad.UpdateState(state);
+		}
+		return false;
+	}
+	if (keyCode == VK_DIVIDE)
+	{
+		if (keyStatus == WM_KEYDOWN)
+		{
+			rightYThreshold -= 100;
+			std::cout << rightXThreshold << std::endl;
 			pad.UpdateState(state);
 		}
 		return false;
