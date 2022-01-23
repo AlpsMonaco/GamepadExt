@@ -6,7 +6,7 @@
 MainWindow* WindowPointer = nullptr;
 std::thread t([]()->void{
     std::this_thread::sleep_for(std::chrono::seconds(3));
-    WindowPointer->AppendText();
+    emit WindowPointer->AppendText();
 });
 
 int main(int argc, char *argv[])

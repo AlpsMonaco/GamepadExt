@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(this,SIGNAL(AppendText()),this,SLOT(DoAppendText()));
 }
 
 MainWindow::~MainWindow()
@@ -13,11 +14,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::AppendText()
-{
-    qDebug()<<QString("Start Append text");
-}
-
 void MainWindow::DoAppendText(){
+    qDebug()<<QString("Start");
     this->ui->plainTextEdit->appendPlainText("asd");
+    this->ui->plainTextEdit->repaint();
 }
