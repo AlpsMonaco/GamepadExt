@@ -15,6 +15,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void SetCloseEvent(void (*f)());
+
+protected:
+    void (*OnClose)();
+    void closeEvent(QCloseEvent* event);
+
 signals:
     void AppendText();
 
@@ -22,6 +28,6 @@ public slots:
     void DoAppendText();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
 };
 #endif // MAINWINDOW_H
