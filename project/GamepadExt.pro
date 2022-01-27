@@ -37,8 +37,3 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/debug -lViGEmClient
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/libViGEmClient.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/libViGEmClientd.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/ViGEmClient.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/ViGEmClientd.lib
