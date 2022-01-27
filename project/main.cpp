@@ -1,9 +1,10 @@
-#include "GamepadExt.h"
+#include "mainwindow.h"
+#include <QApplication>
+#include "VirtualGamepad.h"
 #include "keyboard.h"
-#include "Gamepad.h"
 
-gamepad::xBox360& xbox360Gamepad;
-gamepad::State& state;
+XBox360Gamepad* xbox360Gamepad = nullptr;
+GamepadState state;
 
 int threshold = 10000;
 const int defaultThreshold = 12000;
@@ -11,7 +12,7 @@ int rightXThreshold = defaultThreshold;
 int rightYThreshold = defaultThreshold;
 bool forward = false;
 
-bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
+bool KeyToGamepad(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
 {
     if (keyCode == VK_NUMPAD4)
     {
@@ -19,7 +20,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             state.rightJoystick.X = -rightXThreshold;
         else
             state.rightJoystick.X = 0;
-        xbox360Gamepad.UpdateState(state);
+        xbox360Gamepad->UpdateState(&state);
         return false;
     }
     if (keyCode == VK_NUMPAD6)
@@ -28,7 +29,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             state.rightJoystick.X = rightXThreshold;
         else
             state.rightJoystick.X = 0;
-        xbox360Gamepad.UpdateState(state);
+        xbox360Gamepad->UpdateState(&state);
         return false;
     }
     if (keyCode == VK_NUMPAD8)
@@ -37,7 +38,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             state.rightJoystick.Y = rightYThreshold;
         else
             state.rightJoystick.Y = 0;
-        xbox360Gamepad.UpdateState(state);
+        xbox360Gamepad->UpdateState(&state);
         return false;
     }
     if (keyCode == VK_NUMPAD2)
@@ -46,7 +47,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             state.rightJoystick.Y = -rightYThreshold;
         else
             state.rightJoystick.Y = 0;
-        xbox360Gamepad.UpdateState(state);
+        xbox360Gamepad->UpdateState(&state);
         return false;
     }
     if (keyCode == VK_ADD)
@@ -55,7 +56,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
         {
             rightXThreshold += 500;
             rightYThreshold += 500;
-            xbox360Gamepad.UpdateState(state);
+            xbox360Gamepad->UpdateState(&state);
         }
         return false;
     }
@@ -65,7 +66,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
         {
             rightXThreshold -= 500;
             rightYThreshold -= 500;
-            xbox360Gamepad.UpdateState(state);
+            xbox360Gamepad->UpdateState(&state);
         }
         return false;
     }
@@ -74,7 +75,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
         if (keyStatus == WM_KEYDOWN)
         {
             rightYThreshold += 100;
-            xbox360Gamepad.UpdateState(state);
+            xbox360Gamepad->UpdateState(&state);
         }
         return false;
     }
@@ -83,7 +84,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
         if (keyStatus == WM_KEYDOWN)
         {
             rightYThreshold -= 100;
-            xbox360Gamepad.UpdateState(state);
+            xbox360Gamepad->UpdateState(&state);
         }
         return false;
     }
@@ -95,12 +96,12 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             if (forward)
             {
                 state.leftJoystick.Y = threshold;
-                xbox360Gamepad.UpdateState(state);
+                xbox360Gamepad->UpdateState(&state);
             }
             else
             {
                 state.leftJoystick.Y = 0;
-                xbox360Gamepad.UpdateState(state);
+                xbox360Gamepad->UpdateState(&state);
             }
         }
         return false;
@@ -112,7 +113,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             if (forward)
             {
                 state.leftJoystick.Y = 0;
-                xbox360Gamepad.UpdateState(state);
+                xbox360Gamepad->UpdateState(&state);
             }
             forward = false;
         }
@@ -125,7 +126,7 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             threshold -= 1000;
             if (forward)
                 state.leftJoystick.Y = threshold;
-            xbox360Gamepad.UpdateState(state);
+            xbox360Gamepad->UpdateState(&state);
         }
         return false;
     }
@@ -136,22 +137,50 @@ bool MapKeyToGamepadRule(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySta
             threshold += 1000;
             if (forward)
                 state.leftJoystick.Y = threshold;
-            xbox360Gamepad.UpdateState(state);
+            xbox360Gamepad->UpdateState(&state);
         }
         return false;
     }
     return true;
 }
 
-bool MapKeyToGamepad(gamepad::xBox360& xbox360GamepadRef, gamepad::State& stateRef)
+bool Start()
 {
-    if (!xbox360Gamepad.Connect())
+    if (!VigemManager::GetInstance()->Init())
+    {
+        qDebug() << VigemManager::GetInstance()->Error();
         return false;
-    xbox360Gamepad = xbox360GamepadRef;
-    state = stateRef;
-    keyboard::SetKeyboardCallback(MapKeyToGamepadRule);
+    }
+    xbox360Gamepad = new XBox360Gamepad();
+    if (!xbox360Gamepad->Connect())
+    {
+        qDebug() << xbox360Gamepad->Error();
+        delete xbox360Gamepad;
+        return false;
+    }
+    keyboard::SetKeyboardCallback(KeyToGamepad);
     keyboard::Hook();
     return true;
 }
 
-void Stop() { keyboard::Unhook(); }
+struct Init
+{
+    Init() { }
+    ~Init()
+    {
+        keyboard::Unhook();
+        if (xbox360Gamepad != nullptr)
+        {
+            delete xbox360Gamepad;
+        }
+    }
+} init;
+
+int main(int argc, char* argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    Start();
+    return a.exec();
+}
