@@ -144,7 +144,7 @@ bool KeyToGamepad(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus)
     return true;
 }
 
-bool Start()
+bool BeginKeyToGamepad()
 {
     if (!VigemManager::GetInstance()->Init())
     {
@@ -161,6 +161,42 @@ bool Start()
     keyboard::SetKeyboardCallback(KeyToGamepad);
     keyboard::Hook();
     return true;
+}
+
+namespace experiment
+{
+    bool flag = false;
+
+    LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
+    {
+        KBDLLHOOKSTRUCT* ks = (KBDLLHOOKSTRUCT*)lParam;
+        auto keyCode = ks->vkCode;
+        auto status = wParam;
+        qDebug() << keyCode;
+        qDebug() << status;
+
+        if (keyCode == 112)
+        {
+            if (status == WM_KEYUP)
+                return 1;
+            keybd_event(VK_LCONTROL, 0, 0, 0);
+            return 1;
+        }
+        if (keyCode == 113)
+        {
+            if (status == WM_KEYUP)
+                return 1;
+            keybd_event(VK_LCONTROL, 0, KEYEVENTF_KEYUP, 0);
+            return 1;
+        }
+        return CallNextHookEx(NULL, nCode, wParam, lParam);
+    }
+
+    bool Hook()
+    {
+        auto keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
+        return keyboardHook != NULL;
+    }
 }
 
 struct Init
@@ -181,6 +217,6 @@ int main(int argc, char* argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    Start();
+    BeginKeyToGamepad();
     return a.exec();
 }

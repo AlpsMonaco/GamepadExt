@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/build-GamepadExt-Desktop_Qt_6_2_2_MSVC2019_64bit-Debug
+/build/Desktop_Qt_6_2_2_MSVC2019_64bit-Debug
+/build-GamepadExt-Desktop_Qt_6_2_2_MSVC2019_64bit-Release
+/build/Desktop_Qt_6_2_2_MSVC2019_64bit-Release
