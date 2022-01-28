@@ -11,26 +11,30 @@ MainWindow::MainWindow(QWidget* parent)
 {
     ui->setupUi(this);
     connect(this, SIGNAL(AppendText(QString)), this, SLOT(DoAppendText(QString)));
-    this->OnClose = []() -> void {};
+    //    this->OnClose = []() -> void {};
     this->c = nullptr;
     this->mode = MODE_KEYTOGAMEPAD;
     this->activeButton[0] = this->ui->pushButton_2;
     this->activeButton[1] = this->ui->pushButton_5;
 }
 
-void MainWindow::SetCloseEvent(void (*f)()) { this->OnClose = f; }
+// void MainWindow::SetCloseEvent(void (*f)()) { this->OnClose = f; }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    if (this->c != nullptr)
+    {
+        this->c->Stop();
+        delete this->c;
+        this->c = nullptr;
+    }
 }
 
 void MainWindow::DoAppendText(const QString& text)
 {
     this->ui->plainTextEdit->appendPlainText(text);
 }
-
-void MainWindow::closeEvent(QCloseEvent* event) { this->OnClose(); }
 
 void MainWindow::on_pushButton_3_clicked()
 {
@@ -52,6 +56,7 @@ void MainWindow::on_pushButton_4_clicked()
     this->activeButton[1]->setEnabled(true);
     this->c->Stop();
     delete this->c;
+    this->c = nullptr;
 }
 
 void MainWindow::on_pushButton_clicked()

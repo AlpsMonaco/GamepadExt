@@ -27,8 +27,6 @@ public:
     void SetCloseEvent(void (*f)());
 
 protected:
-    void (*OnClose)();
-    void closeEvent(QCloseEvent* event);
     controller::Controller* GetController();
 
 signals:
