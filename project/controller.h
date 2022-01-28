@@ -47,6 +47,18 @@ namespace controller
         static bool KeyHook(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus);
         static bool isToggle;
     };
+
+    class CombineKeyAndGamepad : public MapKeyToGamepad
+    {
+    public:
+        CombineKeyAndGamepad();
+        ~CombineKeyAndGamepad();
+
+        void Start() override;
+
+        static bool KeyHook(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keyStatus);
+        static bool& isToggle;
+    };
 }
 
 #endif // CONTROLLER_H

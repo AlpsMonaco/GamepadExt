@@ -6,15 +6,82 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>855</width>
-    <height>520</height>
+    <width>688</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>映射手柄</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>映射键盘</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>混合映射</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>启动</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>停止</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <widget class="QPlainTextEdit" name="plainTextEdit">
       <property name="sizePolicy">
@@ -44,8 +111,7 @@ color: rgb(255, 255, 255);</string>
        <bool>true</bool>
       </property>
       <property name="plainText">
-       <string>--Gamepad Ext--
-Let's Begin!</string>
+       <string>Set mode:KeyToGamepad</string>
       </property>
       <property name="backgroundVisible">
        <bool>false</bool>
@@ -59,7 +125,7 @@ Let's Begin!</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>855</width>
+     <width>688</width>
      <height>21</height>
     </rect>
    </property>
