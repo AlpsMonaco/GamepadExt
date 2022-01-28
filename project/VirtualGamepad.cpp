@@ -1,5 +1,18 @@
 #include "VirtualGamepad.h"
 
+using namespace gamepad;
+
+void gamepad::InitGamepadState(GamepadState& state)
+{
+    state.button = 0;
+    state.leftTrigger = 0;
+    state.rightTrigger = 0;
+    state.leftJoystick.X = 0;
+    state.leftJoystick.Y = 0;
+    state.rightJoystick.X = 0;
+    state.rightJoystick.Y = 0;
+}
+
 const char* VirtualGamepad::Error() { return this->errorMessage; }
 
 XBox360Gamepad::~XBox360Gamepad() { }

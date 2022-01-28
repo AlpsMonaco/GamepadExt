@@ -1,5 +1,7 @@
 #include "VigemManager.h"
 
+using namespace gamepad;
+
 VigemManager* VigemManager::ins = nullptr;
 VigemManager::Deleter VigemManager::deleter = VigemManager::Deleter();
 
@@ -38,17 +40,19 @@ VigemManager::~VigemManager()
 bool VigemManager::Init()
 {
     if (this->client == nullptr)
+    {
         this->client = vigem_alloc();
-    if (this->client == nullptr)
-    {
-        SetError("vigem_alloc failed.");
-        return false;
-    }
-    VIGEM_ERROR retval = vigem_connect(this->client);
-    if (!VIGEM_SUCCESS(retval))
-    {
-        sprintf(this->errorMessage, "connect to vigem failed.code: 0x%X", retval);
-        return false;
+        if (this->client == nullptr)
+        {
+            SetError("vigem_alloc failed.");
+            return false;
+        }
+        VIGEM_ERROR retval = vigem_connect(this->client);
+        if (!VIGEM_SUCCESS(retval))
+        {
+            sprintf(this->errorMessage, "connect to vigem failed.code: 0x%X", retval);
+            return false;
+        }
     }
     return true;
 }

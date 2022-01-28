@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     VigemManager.cpp \
     VirtualGamepad.cpp \
+    controller.cpp \
     keyboard.cpp \
     main.cpp \
     mainwindow.cpp 
@@ -19,6 +20,7 @@ HEADERS += \
     Types.h \
     VigemManager.h \
     VirtualGamepad.h \
+    controller.h \
     keyboard.h \
     keyboard_define.h \
     mainwindow.h

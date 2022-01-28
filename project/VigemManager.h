@@ -5,31 +5,34 @@
 #include <ViGEm/Client.h>
 #include <stdio.h>
 
-class VigemManager
+namespace gamepad
 {
-public:
-    static VigemManager* GetInstance();
-    bool Init();
-    const char* Error();
-    PVIGEM_CLIENT GetClient();
-
-private:
-    class Deleter
+    class VigemManager
     {
     public:
-        Deleter();
-        ~Deleter();
+        static VigemManager* GetInstance();
+        bool Init();
+        const char* Error();
+        PVIGEM_CLIENT GetClient();
+
+    private:
+        class Deleter
+        {
+        public:
+            Deleter();
+            ~Deleter();
+        };
+
+        static Deleter deleter;
+        static VigemManager* ins;
+
+        PVIGEM_CLIENT client;
+        char errorMessage[64];
+
+        VigemManager();
+        ~VigemManager();
+        void SetError(const char* errorMessage);
     };
-
-    static Deleter deleter;
-    static VigemManager* ins;
-
-    PVIGEM_CLIENT client;
-    char errorMessage[64];
-
-    VigemManager();
-    ~VigemManager();
-    void SetError(const char* errorMessage);
-};
+}
 
 #endif // VIGEMMANAGER_H
