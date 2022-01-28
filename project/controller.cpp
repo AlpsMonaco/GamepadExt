@@ -214,11 +214,12 @@ bool MapKeyToKey::KeyHook(keyboard::KeyCode& keyCode, keyboard::KeyStatus& keySt
     case VK_W:
         if (keyStatus == WM_KEYUP)
         {
+            isToggle = false;
+        }
+        else
+        {
             if (isToggle)
-            {
                 keybd_event(0, SCAN_CODE_LCTRL, KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP, 0);
-                isToggle = false;
-            }
         }
         return true;
     default:
