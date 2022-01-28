@@ -1,14 +1,50 @@
 # GamepadExt
-This is a util simulates left joystick of xbox360 gamepad auto walk.
+This tool aims to controll game characters automatically.  
+Take it as a basic keyboard macro framework.  
+
+## Features
+1. Generate virtual gamepad using ViGEmBus.In order to generate successfully,You'll have to install ViGEmBusSetup.msi from installer/  
+2. Remap the keyboard key to another key in the same keyboard.Using scan code to send keyboard event,works in mostly games.  
+
 
 ## WHY???
+Current modes are all set to move forward automatically.  
 Don't you like enjoying splendid view of 3A games???  
 Looking at the game character walking in the game without controlling a gamepad or keyboard (afk) would be a nice thing.
+
+## Mode
+
+### Mode.1
+map keyboard to virtual gamepad.  
 
 ## Keymap
 F1 -> toggle auto walk.  
 F2 -> reduce walk speed.  
-F3 -> add walk speed.    
+F3 -> add walk speed.  
+NUMPAD_4 -> move camera left  
+NUMPAD_6 -> move camera right  
+NUMPAD_2 -> move camera down  
+NUMPAD_8 -> move camera up  
+
+### Mode.2
+map keyboard to keyboard.  
+
+## Keymap
+F1 -> toggle auto walk.it is the same you phsically press w button.  
+W -> cancel auto walk.
+
+### Mode.3
+Combine mode.1 & mode.2
+
+## keymap
+F1 -> toggle auto walk.it is the same you phsically press w button.  
+F5 -> toggle auto walk.  
+F6 -> reduce walk speed.  
+F7 -> add walk speed.  
+NUMPAD_4 -> move camera left  
+NUMPAD_6 -> move camera right  
+NUMPAD_2 -> move camera down  
+NUMPAD_8 -> move camera up  
 
 
 ## Installation
@@ -19,7 +55,7 @@ F3 -> add walk speed.
 
 ## Extionsion
 code is easy to access.  
-feel free to commit(I know that there will not)  
+feel free to commit.  
 
 # GamepadExt
 这个工具用来模拟 ```xbox360手柄```左摇杆自动前进（走路）  
